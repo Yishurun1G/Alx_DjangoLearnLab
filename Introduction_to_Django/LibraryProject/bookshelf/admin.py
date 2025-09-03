@@ -1,0 +1,5 @@
+from django.contrib import admin
+from .models import Book
+
+# Register Book model with default admin interface
+admin.site.register(Book)
