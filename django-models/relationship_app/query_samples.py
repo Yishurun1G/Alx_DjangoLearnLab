@@ -1,23 +1,35 @@
+import django
+import os
+
+# Setup Django environment so we can run queries from a standalone script
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_models.settings")
+django.setup()
+
 from relationship_app.models import Author, Book, Library, Librarian
 
-# Query all books by a specific author
-def books_by_author(author_name):
+# 1. Query all books by a specific author
+author_name = "J.K. Rowling"
+try:
     author = Author.objects.get(name=author_name)
-    return Book.objects.filter(author=author)
+    books_by_author = Book.objects.filter(author=author)
+    print(f"Books by {author_name}: {[book.title for book in books_by_author]}")
+except Author.DoesNotExist:
+    print(f"No author found with name {author_name}")
 
-# List all books in a library
-def books_in_library(library_name):
+
+# 2. List all books in a library
+library_name = "Central Library"
+try:
     library = Library.objects.get(name=library_name)
-    return library.books.all()
-
-# Retrieve the librarian for a library
-def librarian_of_library(library_name):
-    library = Library.objects.get(name=library_name)
-    return library.librarian
+    books_in_library = library.books.all()
+    print(f"Books in {library_name}: {[book.title for book in books_in_library]}")
+except Library.DoesNotExist:
+    print(f"No library found with name {library_name}")
 
 
-# Example usage (only works inside Django shell or script runner)
-if __name__ == "__main__":
-    print("Books by J.K. Rowling:", books_by_author("J.K. Rowling"))
-    print("Books in Central Library:", books_in_library("Central Library"))
-    print("Librarian of Central Library:", librarian_of_library("Central Library"))
+# 3. Retrieve the librarian for a library
+try:
+    librarian = Librarian.objects.get(library__name=library_name)
+    print(f"Librarian for {library_name}: {librarian.name}")
+except Librarian.DoesNotExist:
+    print(f"No librarian assigned for {library_name}")
