@@ -1,4 +1,5 @@
 INSTALLED_APPS = [
+    # Django default apps …
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -6,6 +7,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',  
-    'api'
+    # Third-party apps
+    'rest_framework',
+    'rest_framework.authtoken',  
+
+    # Local apps
+    'api',
 ]
