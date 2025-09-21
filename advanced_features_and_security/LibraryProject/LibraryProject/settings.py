@@ -7,4 +7,4 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookshelf',  # <- make sure this is added
 ]
-
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
