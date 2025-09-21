@@ -1,18 +1,20 @@
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from django.db import models
+from django.conf import settings
 
-# Custom admin for CustomUser
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
-    list_display = ["username", "email", "date_of_birth", "is_staff"]
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {"fields": ("date_of_birth", "profile_photo")}),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {"fields": ("date_of_birth", "profile_photo")}),
-    )
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-# Register CustomUser with the admin
-admin.site.register(CustomUser, CustomUserAdmin)
+    class Meta:
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+
+    def __str__(self):
+        return self.title
 
