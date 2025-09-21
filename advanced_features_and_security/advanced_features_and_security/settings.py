@@ -4,6 +4,7 @@ INSTALLED_APPS = [
     'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
+    'accounts',
     ...
 ]
 
