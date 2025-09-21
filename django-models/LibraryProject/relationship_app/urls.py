@@ -3,9 +3,9 @@ from . import views
 
 urlpatterns = [
     # Book CRUD
-    path("books/add/", views.add_book, name="add_book"),            # Add book
-    path("books/<int:pk>/edit/", views.edit_book, name="edit_book"),  # Edit book
-    path("books/<int:pk>/delete/", views.delete_book, name="delete_book"),  # Delete book
+    path("add_book/", views.add_book, name="add_book"),                 # Add book
+    path("edit_book/<int:pk>/", views.edit_book, name="edit_book"),     # Edit book
+    path("delete_book/<int:pk>/", views.delete_book, name="delete_book"),  # Delete book
 
     # List and detail views
     path("books/", views.list_books, name="list_books"),
