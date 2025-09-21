@@ -1,6 +1,5 @@
 from django.db import models
 
-# Author model
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
@@ -8,7 +7,6 @@ class Author(models.Model):
         return self.name
 
 
-# Book model with ForeignKey to Author
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="books")
@@ -17,7 +15,6 @@ class Book(models.Model):
         return self.title
 
 
-# Library model with ManyToMany relation to Book
 class Library(models.Model):
     name = models.CharField(max_length=100)
     books = models.ManyToManyField(Book, related_name="libraries")
@@ -26,7 +23,6 @@ class Library(models.Model):
         return self.name
 
 
-# Librarian model with OneToOne relation to Library
 class Librarian(models.Model):
     name = models.CharField(max_length=100)
     library = models.OneToOneField(Library, on_delete=models.CASCADE, related_name="librarian")
